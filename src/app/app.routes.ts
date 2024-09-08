@@ -16,6 +16,7 @@ import { enterGuard } from './shared/guard/enter.guard';
 import { ForgetPasswordComponent } from './layout/pages/forget-password/forget-password.component';
 
 export const routes: Routes = [
+    {path: '', redirectTo: '/home', pathMatch: 'full'},
     {path: 'home', component: HomeComponent, title: 'Home', canActivate: [authGuard]},
     {path: 'productDetails/:id', component: ProductDetailsComponent, title: 'Details', canActivate: [authGuard]},
     {path: 'cart', component: CartComponent, title: 'Cart', canActivate: [authGuard]},
