@@ -1,0 +1,19 @@
+#my-model {
+    display: none; /* Hidden by default */
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.5s ease, visibility 0.5s ease;
+  }
+  
+  /* Show modal smoothly */
+  #my-model.show {
+    display: block; /* Ensures modal appears */
+    opacity: 1;
+    visibility: visible;
+  }
+  
+  /* Optional: Add some background shade effect */
+  .bg-shade {
+    background-color: rgba(0, 0, 0, 0.6); /* Semi-transparent background */
+    transition: background-color 0.5s ease; /* Smooth transition for background */
+  }

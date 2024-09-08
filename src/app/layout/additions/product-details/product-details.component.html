@@ -1,0 +1,45 @@
+@if(loading){
+    <app-loading></app-loading>
+}
+
+@if(isDone)
+{
+    <section class="py-5 px-sm-5">
+        <div class="container-md">
+            <div class="row align-items-center">
+                <div class="col-md-4">
+                    <!-- <img [src]="productDetails.imageCover" class="img-fluid"> -->
+                    <owl-carousel-o [options]="customOptions">
+                        @for(src of productDetails.images ; track $index)
+                        {
+                            <ng-template carouselSlide [id]="productDetails.id">
+                                <img [src]="src" [alt]="productDetails.title" [title]="productDetails.title">
+                            </ng-template>
+                        }
+                    </owl-carousel-o>
+                </div>
+                <div class="col-md-8">
+                    <div>
+                        <h3 class="fw-bolder">{{productDetails.title}} </h3>
+                        <p class="text-light-emphasis">{{productDetails.description}} </p>
+                        <div class="d-flex justify-content-between">
+                            <p class="fs-small"> {{productDetails.price}} EGP</p>
+                            <span>
+                                <i class="fas fa-star rating-color"></i>
+                                <span class="fs-small-bold">{{productDetails.ratingsAverage}}</span>
+                            </span>
+                        </div>
+                        @if(isWish){
+                            <p class="text-end cursor-pointer" (click)="removeFromWishList(id)"><i class="fas fa-heart fa-2x text-danger"></i></p>
+                        }@else {
+                            <p class="text-end cursor-pointer" (click)="addToWishList(id)"><i class="fas fa-heart fa-2x"></i></p>
+                        }
+                        <button (click)="addProductToCart(productDetails.id)" class="btn text-white btn-main w-75 m-auto d-block">+Add</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+}@else {
+    <app-loading></app-loading>
+}

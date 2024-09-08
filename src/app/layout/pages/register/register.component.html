@@ -1,0 +1,127 @@
+<section id="registerForm" class="py-5">
+  <div class="container">
+    <h1 class="fw-bold mb-3 text-3xl">Register now</h1>
+    <form action="" [formGroup]="registerForm" (ngSubmit)="submitData()">
+      <div class="row justify-content-center gy-3">
+        @if(errorMessage)
+        {
+          <div class="col-md-8">
+            <p class="alert alert-danger mb-0">{{errorMessage}}</p>
+          </div>
+        }
+        <div class="col-md-8">
+          <label class="fw-semibold" for="userName">Name :</label>
+          <input type="text" id="userName" class="border text-gray-900 text-sm font-bold rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required formControlName="name"/>
+          @if(registerForm.get('name')?.errors && registerForm.get('name')?.touched)
+          {
+            @if(registerForm.get('name')?.errors?.['required'])
+            {
+              <div>
+                <p class="alert alert-danger mt-2">Name is required</p>
+              </div>
+            }
+            @else if(registerForm.get('name')?.errors?.['minlength'])
+            {
+              <div>
+                <p class="alert alert-danger mt-2">Name must be at least 3 characters</p>
+              </div>
+            }
+            @else if(registerForm.get('name')?.errors?.['maxlength'])
+            {
+              <div>
+                <p class="alert alert-danger mt-2">Name must be at most 15 characters</p>
+              </div>
+            }
+          }
+        </div>
+        <div class="col-md-8">
+          <label class="fw-semibold" for="email">Email :</label>
+          <input type="email" id="email" class="border text-gray-900 text-sm font-bold rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required formControlName="email"/>
+          @if(registerForm.get('email')?.errors && registerForm.get('email')?.touched)
+          {
+            @if(registerForm.get('email')?.errors?.['required'])
+            {
+              <div>
+                <p class="alert alert-danger mt-2">Email is required</p>
+              </div>
+            }
+            @else if(registerForm.get('email')?.errors?.['email'])
+            {
+              <div>
+                <p class="alert alert-danger mt-2">Email is invalid</p>
+              </div>
+            }
+          }
+        </div>
+        <div class="col-md-8">
+          <label class="fw-semibold" for="password">Password :</label>
+          <input type="password" id="password" class="border text-gray-900 text-sm font-bold rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required formControlName="password"/>
+          @if(registerForm.get('password')?.errors && registerForm.get('password')?.touched)
+          {
+            @if(registerForm.get('password')?.errors?.['required'])
+            {
+              <div>
+                <p class="alert alert-danger mt-2">Password is required</p>
+              </div>
+            }
+            @else if(registerForm.get('password')?.errors?.['pattern'])
+            {
+              <div>
+                <p class="alert alert-danger mt-2">Password must start with uppercase and contains at between 5 to 14 numbers or lowercase characters</p>
+              </div>
+            }
+          }
+        </div>
+        <div class="col-md-8">
+          <label class="fw-semibold" for="rePassword">Re-Password :</label>
+          <input type="password" id="rePassword" class="border text-gray-900 text-sm font-bold rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required formControlName="rePassword"/>
+          @if(registerForm.get('rePassword')?.errors && registerForm.get('rePassword')?.touched)
+          {
+            @if(registerForm.get('rePassword')?.errors?.['required'])
+            {
+              <div>
+                <p class="alert alert-danger mt-2">Field is required</p>
+              </div>
+            }
+            @else if(registerForm.get('rePassword')?.errors?.['confirmPasswordError'])
+            {
+              <div>
+                <p class="alert alert-danger mt-2">Password must be matched</p>
+              </div>
+            }
+          }
+        </div>
+        <div class="col-md-8">
+          <label class="fw-semibold" for="Phone">Phone :</label>
+          <input type="tel" id="Phone" class="border text-gray-900 text-sm font-bold rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required formControlName="phone"/>
+          @if(registerForm.get('phone')?.errors && registerForm.get('phone')?.touched)
+          {
+            @if(registerForm.get('phone')?.errors?.['required'])
+            {
+              <div>
+                <p class="alert alert-danger mt-2">Phone is required</p>
+              </div>
+            }
+            @else if(registerForm.get('phone')?.errors?.['pattern'])
+            {
+              <div>
+                <p class="alert alert-danger mt-2">Phone is invalid, You must enter an egyptian phone number</p>
+              </div>
+            }
+          }
+        </div>
+        <div class="col-md-8 text-end">
+          <button [disabled]="registerForm.invalid" class="btn text-white btn-main">Submit
+            @if (isLoading) {
+              <i class="fa-solid fa-spinner fa-spin ms-1"></i>
+            }
+          </button>
+
+          <button class="btn btn-reset ms-2 text-white" type="reset" (click)="clearFrom()">Reset</button>
+
+        </div>
+        
+      </div>
+    </form>
+  </div>
+</section>

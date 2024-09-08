@@ -1,0 +1,72 @@
+@if(!brandDone) {
+<app-loading></app-loading>
+} @else{
+<section class="py-5">
+  <div class="container">
+    <div class="row g-4">
+      @for(brand of brandList; track $index) {
+      <div class="col-md-3">
+        <div (click)="getSpecificBrand(brand._id)" class="product-item category-item rounded-md cursor-pointer border-slate-300 border-1">
+          <div class="category-img">
+            <img [src]="brand.image" [alt]="brand.name" class="img-fluid m-auto" />
+          </div>
+          <div>
+            <h4 class="text-main text-center fw-bold fs-4 py-3">
+              {{ brand.name }}
+            </h4>
+          </div>
+        </div>
+      </div>
+      }
+    </div>
+  </div>
+</section>
+}
+
+
+
+
+@if(brandLoading){
+    <app-loading></app-loading>
+}
+
+
+<div id="my-model" class="modal">
+    <div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+        <h1 id="exampleModalLabel" class="modal-title fs-5">
+            @if(brandDetails)
+            {
+                {{ brandDetails.name }}
+            }
+        </h1>
+        <button type="button" (click)="hideModal()" class="btn-close" ></button>
+        </div>
+        <div class="modal-body d-flex justify-between items-center p-4">
+        <div>
+            <h6 class="fs-4 mb-2 text-main fw-semibold">
+                @if(brandDetails){
+                    {{brandDetails.name}} 
+                }
+            </h6>
+            <p>
+                @if(brandDetails){
+                    {{brandDetails.name}} 
+                }
+            </p>
+        </div>
+        <div>
+            @if(brandDetails)
+            {
+                <img [src]="brandDetails.image" [alt]="brandDetails.name">
+            }
+        </div>
+        </div>
+        <div class="modal-footer">
+        <button type="button" (click)="hideModal()" class="btn btn-secondary">Close</button>
+        </div>
+    </div>
+    </div>
+</div>
+

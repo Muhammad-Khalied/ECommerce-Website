@@ -1,0 +1,154 @@
+<!-- <nav class="navbar navbar-expand-lg bg-body-tertiary">
+    <div class="container">
+      <a class="navbar-brand" routerLink="/home"><img src="../../../../assets/images/freshcart-logo.svg" alt="fresh-cart logo"></a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        @if(isLogin){
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a class="nav-link px-3 rounded-3" routerLink="/home" routerLinkActive="activeLink text-white" >Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link px-3 rounded-3" routerLink="/cart" routerLinkActive="activeLink text-white">Cart</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link px-3 rounded-3" routerLink="/products" routerLinkActive="activeLink text-white">Products</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link px-3 rounded-3" routerLink="/category" routerLinkActive="activeLink text-white">categories</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link px-3 rounded-3" routerLink="/brands" routerLinkActive="activeLink text-white">Brands</a>
+            </li>
+          </ul>
+        }
+
+        <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+            @if(!isLogin){
+              <li class="nav-item">
+                <a class="nav-link px-3 rounded-3" routerLink="login">Login</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link px-3 rounded-3" routerLink="register">Register</a>
+              </li>
+            }
+
+            @if(isLogin){
+              <li class="nav-item">
+                  <a class="nav-link px-3 rounded-3" (click)="logout()" style="cursor: pointer;">SignOut</a>
+              </li>
+              <div class="d-flex gap-3 gap-lg-0 px-3">
+                <li class="nav-item">
+                    <a class="nav-link text-black" href="#"><i class="fa-brands fa-instagram"></i></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-black" href="#"><i class="fa-brands fa-facebook"></i></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-black" href="#"><i class="fa-brands fa-tiktok"></i></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-black" href="#"><i class="fa-brands fa-twitter"></i></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-black" href="#"><i class="fa-brands fa-linkedin"></i></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-black" href="#"><i class="fa-brands fa-youtube"></i></a>
+                </li>
+              </div>
+            }
+        </ul>
+
+      </div>
+    </div>
+  </nav> -->
+
+
+
+<nav class="bg-white dark:bg-gray-900 relative my-nav">
+  <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-6 lg:py-0 mb-5">
+    <a class="navbar-brand mb-4 mb-lg-0" routerLink="/home"><img src="../../../../assets/images/freshcart-logo.svg" alt="fresh-cart logo"></a>
+    <button data-collapse-toggle="navbar-default" type="button" class="inline-flex items-center mb-4 mb-lg-0 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg lg:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600" aria-controls="navbar-default" aria-expanded="false">
+        <span class="sr-only">Open main menu</span>
+        <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 17 14">
+            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 1h15M1 7h15M1 13h15"/>
+        </svg>
+    </button>
+    <div class="hidden w-full lg:flex lg:gap-32 lg:w-auto py-4 lg:py-0" id="navbar-default">
+      @if(isLogin){
+        <ul class="font-medium flex flex-col lg:p-0 rounded-lg lg:flex-row rtl:space-x-reverse lg:mt-0 lg:bg-white dark:bg-gray-800 lg:dark:bg-gray-900 dark:border-gray-700">
+          <li class="nav-item">
+            <a class="nav-link fw-bold px-3 py-1 mb-6 lg:mb-0 rounded-3" routerLink="/home" routerLinkActive="activeLink text-white" >Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link fw-bold px-3 py-1 mb-6 lg:mb-0 rounded-3" routerLink="/cart" routerLinkActive="activeLink text-white">Cart</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link fw-bold px-3 py-1 mb-6 lg:mb-0 rounded-3" routerLink="/wishlist" routerLinkActive="activeLink text-white">Whish List</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link fw-bold px-3 py-1 mb-6 lg:mb-0 rounded-3" routerLink="/products" routerLinkActive="activeLink text-white">Products</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link fw-bold px-3 py-1 mb-6 lg:mb-0 rounded-3" routerLink="/category" routerLinkActive="activeLink text-white">Categories</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link fw-bold px-3 py-1 mb-6 lg:mb-0 rounded-3" routerLink="/brands" routerLinkActive="activeLink text-white">Brands</a>
+          </li>
+          
+        </ul>
+      }
+
+      <ul class="lg:flex lg:p-0 rounded-lg lg:items-center lg:flex-row tl:space-x-reverse lg:mt-0 lg:bg-white dark:bg-gray-800 lg:dark:bg-gray-900 dark:border-gray-700">
+        @if(!isLogin){
+          <li class="nav-item">
+            <a class="nav-link fw-bold px-3 py-1 rounded-3 font-bold" routerLink="login">Login</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link fw-bold px-3 py-1 rounded-3 font-bold" routerLink="register">Register</a>
+          </li>
+        }
+
+        @if(isLogin){
+          <li class="nav-item mb-6 lg:mb-0">
+            <a class="px-3 px-lg-0 py-1 rounded-3 relative font-bold" routerLink="/cart" >
+              <i class="fa-solid fa-shopping-cart text-2xl "></i>
+              <span class="bg-main absolute -top-3 start-3 text-white text-xs font-medium me-2 px-2 py-0.5 rounded dark:bg-green-900 dark:text-green-300">
+                {{cartItemsNumber}}
+              </span>
+            </a>
+          </li>
+          <li class="nav-item mb-6 lg:mb-0">
+              <a class="px-3 py-1 rounded-3 text-main font-bold" (click)="logout()" style="cursor: pointer;">SignOut</a>
+          </li>
+          
+          <!-- <div class="flex gap-2 px-3 lg:px-0">
+            <li class="nav-item">
+                <a class="nav-link text-black" href="#"><i class="fa-brands fa-instagram"></i></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-black" href="#"><i class="fa-brands fa-facebook"></i></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-black" href="#"><i class="fa-brands fa-tiktok"></i></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-black" href="#"><i class="fa-brands fa-twitter"></i></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-black" href="#"><i class="fa-brands fa-linkedin"></i></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-black" href="#"><i class="fa-brands fa-youtube"></i></a>
+            </li>
+          </div> -->
+        }
+      </ul>
+
+    </div>
+  </div>
+
+</nav>

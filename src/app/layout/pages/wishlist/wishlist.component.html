@@ -1,0 +1,66 @@
+@if(!wishDone)
+{
+    <app-loading></app-loading>
+}
+
+@else {
+  @if(loading)
+  {
+      <app-loading></app-loading>
+  }
+  <section class="py-5">
+      <div class="container">
+        <h1 class="text-main font-bold text-3xl mb-8 text-center">Wish List</h1>
+        <div class="row justify-center p-2">
+          <div class="col-xl-10">
+              <div>
+                  @for(product of wishList; track $index){
+                      <div class="shadow-md">
+                        <div class="p-3">
+                          <div class="content-body">
+                            <article class="row gy-3 mb-4">
+                              <div class="col-md-3">
+                                <figure class="itemside me-lg-5">
+                                  <div class="aside">
+                                      <img [src]="product.imageCover" [alt]="product.title" class="img-fluid" >
+                                  </div>
+                                  <figcaption class="font-semibold text-gray-900 text-center mt-3">
+                                    <p class="title">{{product.title.split(' ').slice(0, 2).join(' ')}} </p>
+                                  </figcaption>
+                                </figure>
+                              </div>
+                              <div class="col-md-3 col-12 flex flex-column items-center justify-center">
+                                  <p class="font-semibold text-gray-900 mb-3">{{product.price}} EGP</p>
+                              </div>
+                              <div class="col-md-3 col-6 items-center d-flex justify-center">
+                                <div class="">
+                                  <button (click)="removeProductFromWishList(product.id)" class="font-medium cursor-pointer rounded-lg hover:bg-red-600 transition-all bg-red-700 text-white dark:text-white px-2 px-md-4 py-2">Remove</button>
+                                </div>
+                              </div>
+                              <div class="col-md-3 col-6 items-center d-flex justify-center">
+                                  <div>
+                                      <button (click)="addToCart(product.id)" class="bg-main-op hover:bg-green-500 font-medium cursor-pointer rounded-lg transition-all text-white dark:text-white px-2 px-md-4 py-2">Add To cart</button>
+                                  </div>
+                              </div>
+                            </article>
+                          </div>
+                        </div>
+                      </div>
+                  }
+              </div>
+              @if(wishList.length == 0){
+                  <div class="flex justify-center items-center shadow-md">
+                      <p class="text-gray-900 dark:text-white text-2xl font-semibold my-5">No Products Found</p>
+                  </div>
+              }
+              <!-- @else{
+                  <div class="flex justify-center items-center" >
+                      <button (click)="clearWishList()" class="font-medium cursor-pointer rounded-lg transition-all border-x border-y mt-6 text-gray-950 hover:bg-red-600 hover:text-red-50 border-red-700 dark:text-white px-6 py-2">Clear Cart</button>
+                  </div>
+              } -->
+          </div>
+        </div>
+      </div>
+  </section>
+
+}

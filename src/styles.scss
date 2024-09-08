@@ -1,0 +1,139 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* You can add global styles to this file, and also import other style files */
+/* You can add global styles to this file, and also import other style files */
+@import url('https://fonts.googleapis.com/css2?family=Encode+Sans+Expanded:wght@300&display=swap');
+:root
+{
+    --main-color:#0ca50c;
+    --light-color:#f0f3f2;
+    --shadow: rgba(145,158,171,.2) 0px 2px 4px -1px,rgba(145,158,171,.14) 0px 4px 5px 0px,rgba(145,158,171,.12) 0px 1px 10px 0px;
+    --main-shadow: rgba(145,158,171,.2) 0px 2px 4px -1px,rgba(145,158,171,.2) 0px 4px 5px 0px,var(--main-color) 0px 1px 10px 0px;
+    --font-family:'Encode Sans Expanded', sans-serif;
+    --rating-color:#ffc908;
+    --orange-color:#db5305;
+}
+
+body{
+    font-family: var(--font-family) !important;
+}
+.rating-color
+{
+    color: var(--rating-color);
+}
+.cursor-pointer
+{
+    cursor: pointer;
+}
+a , a:hover{
+    text-decoration: none;
+}
+.product:hover
+{
+    box-shadow: var(--shadow);
+    border: solid 1px var(--main-color);
+}
+.product .btn 
+{
+    transition: transform 1s , opacity 1s;
+    transform: translateY(100%);
+    opacity: 0;
+}
+.product:hover .btn 
+{
+    opacity: 1;
+    transform: translateY(0%);
+
+}
+.font-sm
+{
+    font-size: 14px;
+}
+.text-main
+{
+    color: var(--main-color) !important;
+}
+.bg-main
+{
+    background-color: var(--main-color) !important;
+}
+
+.btn-main:hover{
+    background-color: #0dcc0d !important;
+}
+
+.bg-main-op
+{
+    background-color: var(--main-color) ;
+}
+
+
+.btn-main{
+    --bs-btn-bg: var(--main-color);
+    --bs-btn-border-color: var(--main-color);
+    --bs-btn-disabled-bg: var(--main-color);
+    --bs-btn-disabled-border-color: var(--main-color);
+}
+
+.btn-reset{
+    --bs-btn-bg: var(--orange-color);
+    --bs-btn-border-color: var(--orange-color);
+    --bs-btn-disabled-bg: var(--orange-color);
+    --bs-btn-disabled-border-color: var(--orange-color);
+}
+
+.btn-reset:hover{
+    background-color: #ff6f00 !important;
+}
+
+.bg-main-light 
+{
+    background-color: var(--light-color) !important;
+}
+
+.activeLink{
+    background-color: var(--main-color);
+}
+
+.fs-small-bold{
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+.fs-small{
+    font-size: 0.9rem;
+}
+
+.product-item{
+    transition: all 0.4s;
+}
+
+.product-item:hover{
+    box-shadow: var(--main-shadow);
+    .add-button{
+        transform: translate(0, -25px);
+        opacity: 1;
+    }
+}
+
+.add-button{
+    transition: all 0.4s;
+    transform: translate(0, 0px);
+    opacity: 0;
+}
+
+.my-nav{
+    z-index: 1000;
+}
+
+.loading{
+    z-index: 900;
+}
+
+.bg-loading{
+    background-color: rgba(0, 0, 0, 0.6);
+}
+
+

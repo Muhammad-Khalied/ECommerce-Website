@@ -1,0 +1,89 @@
+<section id="checkoutForm" class="py-5">
+    <div class="container">
+      <h1 class="fw-bold mb-3 text-3xl">Checkout</h1>
+      <form action="" [formGroup]="checkoutForm" (ngSubmit)="submitData()">
+        <div class="row justify-content-center gy-3">
+          <div class="col-md-8">
+            <label class="fw-semibold" for="details">Details :</label>
+            <input type="text" id="details" class="border text-gray-900 text-sm font-bold rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required formControlName="details"/>
+            @if(checkoutForm.get('details')?.errors && checkoutForm.get('details')?.touched)
+            {
+              @if(checkoutForm.get('details')?.errors?.['required'])
+              {
+                <div>
+                  <p class="alert alert-danger mt-2">Details is required</p>
+                </div>
+              }
+              @else if(checkoutForm.get('details')?.errors?.['minlength'])
+              {
+                <div>
+                  <p class="alert alert-danger mt-2">Details must be at least 3 characters</p>
+                </div>
+              }
+              @else if(checkoutForm.get('details')?.errors?.['maxlength'])
+              {
+                <div>
+                  <p class="alert alert-danger mt-2">Details must be at most 15 characters</p>
+                </div>
+              }
+            }
+          </div>
+          <div class="col-md-8">
+            <label class="fw-semibold" for="phone">Phone :</label>
+            <input type="tel" id="phone" class="border text-gray-900 text-sm font-bold rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required formControlName="phone"/>
+            @if(checkoutForm.get('phone')?.errors && checkoutForm.get('phone')?.touched)
+            {
+              @if(checkoutForm.get('phone')?.errors?.['required'])
+              {
+                <div>
+                  <p class="alert alert-danger mt-2">Phone is required</p>
+                </div>
+              }
+              @else if(checkoutForm.get('phone')?.errors?.['pattern'])
+              {
+                <div>
+                  <p class="alert alert-danger mt-2">Phone is invalid</p>
+                </div>
+              }
+            }
+          </div>
+          <div class="col-md-8">
+            <label class="fw-semibold" for="city">City :</label>
+            <input type="text" id="city" class="border text-gray-900 text-sm font-bold rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required formControlName="city"/>
+            @if(checkoutForm.get('city')?.errors && checkoutForm.get('city')?.touched)
+            {
+              @if(checkoutForm.get('city')?.errors?.['required'])
+              {
+                <div>
+                  <p class="alert alert-danger mt-2">City is required</p>
+                </div>
+              }
+              @else if(checkoutForm.get('city')?.errors?.['minlength'])
+              {
+                <div>
+                  <p class="alert alert-danger mt-2">City must be at least 3 characters</p>
+                </div>
+              }
+              @else if(checkoutForm.get('city')?.errors?.['maxlength'])
+              {
+                <div>
+                  <p class="alert alert-danger mt-2">City must be at most 15 characters</p>
+                </div>
+              }
+            }
+          </div>
+          <div class="col-md-8 text-end">
+            <button class="btn btn-success" [disabled]="checkoutForm.invalid">Submit
+              @if (isLoading) {
+                <i class="fa-solid fa-spinner fa-spin ms-1"></i>
+              }
+            </button>
+            
+            <button class="btn btn-warning btn-reset ms-2 text-white" type="reset" (click)="resetFrom()">Reset</button>
+            
+          </div>
+  
+        </div>
+      </form>
+    </div>
+  </section>

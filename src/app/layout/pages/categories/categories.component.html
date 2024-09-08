@@ -1,0 +1,52 @@
+@if(!categoryDone) {
+<app-loading></app-loading>
+} @else{
+<section class="py-5">
+  <div class="container">
+    <div class="row g-4">
+      @for(category of categoryList; track $index) {
+      <div class="col-md-4">
+        <div (click)="getSubCategories(category._id, category.name)" class="product-item cursor-pointer category-item rounded-md border-slate-300 border-1">
+          <div class="category-img">
+            <img [src]="category.image" [alt]="category.name" class="w-100 rounded-t-md" style="height: 300px"/>
+          </div>
+          <div>
+            <h4 class="text-main text-center fw-bold fs-4 py-3">
+              {{ category.name }}
+            </h4>
+          </div>
+        </div>
+      </div>
+      }
+    </div>
+  </div>
+</section>
+
+@if(subCategoryActive) {
+<app-loading></app-loading>
+}
+
+<section class="py-5">
+  <div class="container">
+    <h2 class="text-main text-center fw-bold fs-4 py-3 mx-3">
+        @if(subCategoryTitle)
+        {
+            {{ subCategoryTitle }} Sub Categories
+        }
+    </h2>
+    @if(subCategoryList.length > 0){
+    <div class="row g-4">
+      @for(subCategory of subCategoryList; track $index) {
+      <div class="col-md-4">
+        <div class="product-item category-item rounded-md border-slate-300 border-1">
+          <h4 class="text-center fw-bold fs-4 py-3">
+            {{ subCategory.name }}
+          </h4>
+        </div>
+      </div>
+      }
+    </div>
+    }
+  </div>
+</section>
+}
