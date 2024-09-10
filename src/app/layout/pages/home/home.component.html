@@ -5,7 +5,7 @@
     </div>
 
     <div>
-        @if(!productsDone || loading || !_product.categoriesDone$ ){
+        @if(!productsDone || loading || !_product.categoriesDone$ || otherLoading){
             <app-loading></app-loading>
         }
     </div>
@@ -20,13 +20,13 @@
 
     @if(productsDone)
     {
-        <div class="bg-slate-100">
+        <div class="bg-slate-100 py-5">
             <div class="container">
                 <div class="row g-4">
                     <div class="col-12">
                         <div class="m-auto my-5 w-full md:w-8/12">
                             <label class="fw-semibold" for="search">Search :</label>
-                            <input (input)="searchItem($event)" type="text" id="search" class="form-control"/>
+                            <input (input)="searchItem($event)" type="text" id="search" class="border text-gray-900 text-sm font-bold rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"/>
                         </div>
                     </div>
                     @if(productList.length == 0){
@@ -64,6 +64,14 @@
                             }
                         }
                     }
+                </div>
+                <div class="flex justify-center gap-6 py-5">
+                    <div>
+                        <button (click)="previousPage()" class="border-2 p-1 rounded-md"><i class="cursor-pointer fas fa-chevron-left"></i></button>
+                    </div>
+                    <div>
+                        <button (click)="nextPage()" class="border-2 p-1 rounded-md"><i class="cursor-pointer fas fa-chevron-right"></i></button>
+                    </div>
                 </div>
             </div>
         </div>

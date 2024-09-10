@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit, PLATFORM_ID } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ProductService } from '../../../shared/services/product.service';
 import { RootObject } from '../../../shared/interfaces/product';
@@ -7,6 +7,7 @@ import { CartService } from '../../../shared/services/cart.service';
 import { ToastrService } from 'ngx-toastr';
 import { LoadingComponent } from "../loading/loading.component";
 import { WishlistService } from '../../../shared/services/wishlist.service';
+import { isPlatformBrowser } from '@angular/common';
 
 @Component({
   selector: 'app-product-details',
@@ -22,6 +23,7 @@ export class ProductDetailsComponent {
   isDone = false;
   loading: boolean = false;
   productDetails!: RootObject ;
+  platform = inject(PLATFORM_ID);
 
 
   customOptions: OwlOptions = {
@@ -58,7 +60,8 @@ export class ProductDetailsComponent {
     this._route.params.subscribe((params) => {
       this.id = params['id'];
     });
-    localStorage.setItem('currentPage', `productDetails/${this.id}`);
+    if(isPlatformBrowser(this.platform))
+      localStorage.setItem('currentPage', `productDetails/${this.id}`);
     this.getProductDetails();
   }
 
@@ -83,6 +86,7 @@ export class ProductDetailsComponent {
         // console.log(res);
         this._toastr.success(res.message);
         this._cart.cartItemsNumber.next(res.numOfCartItems);
+        localStorage.setItem('cartItemsNumber', res.numOfCartItems);
         this.loading = false;
       },
       error: (err)=> {

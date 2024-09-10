@@ -1,7 +1,8 @@
 import { HttpClient } from '@angular/common/http';
-import { Inject, Injectable, PLATFORM_ID } from '@angular/core';
+import { inject, Inject, Injectable, PLATFORM_ID } from '@angular/core';
 import { environment } from '../../Base/environment';
 import { BehaviorSubject, Observable } from 'rxjs';
+import { isPlatformBrowser } from '@angular/common';
 
 @Injectable({
   providedIn: 'root'
@@ -9,11 +10,14 @@ import { BehaviorSubject, Observable } from 'rxjs';
 export class CartService {
 
   cartItemsNumber = new BehaviorSubject(0);
-  x = Inject(PLATFORM_ID);
+  platform = inject(PLATFORM_ID);
 
   constructor(private _http:HttpClient) { }
 
   ngOnInit(): void {
+    if(isPlatformBrowser(this.platform)){
+
+    }
     this.getCartProducts().subscribe({
       next:(res)=>{
         console.log(res);
@@ -49,11 +53,14 @@ export class CartService {
   }
 
   getCartProducts():Observable<any>{
-    return this._http.get(`${environment.baseUrl}/cart`, {
-      headers: {
-        token:localStorage.getItem('userToken')!
-      }
-    });
+    if(isPlatformBrowser(this.platform)){
+      return this._http.get(`${environment.baseUrl}/cart`, {
+        headers: {
+          token:localStorage.getItem('userToken')!
+        }
+      });
+    }
+    return new Observable();
   }
 
   removeProductFromCart(id:string):Observable<any>{

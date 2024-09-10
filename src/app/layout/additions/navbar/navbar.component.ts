@@ -1,8 +1,9 @@
 import { AuthService } from './../../../shared/services/auth.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit, PLATFORM_ID } from '@angular/core';
 import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { CartService } from '../../../shared/services/cart.service';
 import { FlowbiteService } from '../../../shared/services/flowbite.service';
+import { isPlatformBrowser } from '@angular/common';
 
 @Component({
   selector: 'app-navbar',
@@ -15,6 +16,7 @@ import { FlowbiteService } from '../../../shared/services/flowbite.service';
 export class NavbarComponent implements OnInit {
   isLogin: boolean = false;
   cartItemsNumber! : number;
+  platform = inject(PLATFORM_ID);
   constructor(private _auth: AuthService, private _router: Router, private _cart: CartService, private flowbiteService: FlowbiteService) { }
 
 
@@ -41,7 +43,10 @@ export class NavbarComponent implements OnInit {
   }
 
   logout(){
-    localStorage.removeItem('userToken');
+    if(isPlatformBrowser(this.platform)){
+      localStorage?.removeItem('userToken');
+      localStorage?.removeItem('pageNumber');
+    }
     this._auth.userData.next(null);
     this._router.navigate(['/login']);
   }

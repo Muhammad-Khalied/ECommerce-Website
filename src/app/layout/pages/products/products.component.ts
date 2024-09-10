@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject, PLATFORM_ID } from '@angular/core';
 import { RootObject } from '../../../shared/interfaces/product';
 import { ToastrService } from 'ngx-toastr';
 import { CartService } from '../../../shared/services/cart.service';
@@ -7,6 +7,7 @@ import { LoadingComponent } from "../../additions/loading/loading.component";
 import { RouterLink } from '@angular/router';
 import { WishlistComponent } from '../wishlist/wishlist.component';
 import { WishlistService } from '../../../shared/services/wishlist.service';
+import { isPlatformBrowser } from '@angular/common';
 
 @Component({
   selector: 'app-products',
@@ -18,15 +19,23 @@ import { WishlistService } from '../../../shared/services/wishlist.service';
 export class ProductsComponent {
   productsDone: boolean = false;
   loading: boolean = false;
+  otherLoading: boolean = false;
   sliderDone: boolean = false;
   productList: RootObject[] = [];
   wishList: string[] = [];
   search: string = '';
+  pageNumber: number = 1;
+  platform = inject(PLATFORM_ID);
 
   constructor(protected _product: ProductService, private _cart: CartService, private _toastr:ToastrService, private _wish: WishlistService) { }
 
   ngOnInit(): void {
-    this.getAllProducts();
+    if(isPlatformBrowser(this.platform)){
+      if(localStorage.getItem('pageNumber') != null){
+        this.pageNumber = parseInt(localStorage.getItem('pageNumber')!);
+      }
+    }
+    this.getAllProducts(this.pageNumber.toString());
     this.getWishList();
     localStorage.setItem('currentPage', 'products');
     this._cart.getCartProducts().subscribe({
@@ -36,18 +45,40 @@ export class ProductsComponent {
     })
   }
 
-  getAllProducts() {
-    this._product.getProducts().subscribe({
+  getAllProducts(page: string) {
+    this._product.getProducts(this.pageNumber.toString()).subscribe({
         next: (response) => { 
           this.productList = response.data;
           // console.log(this.productList);
-          this.productsDone = true;
+          this.otherLoading = false;
         },
         error: (error) => { 
           console.log(error);
-          this.productsDone = true;
+          this.otherLoading = false;
         },
       });
+  }
+
+  nextPage(){
+    if(this.pageNumber <= 2){
+      this.otherLoading = true;
+      this.pageNumber++;
+      localStorage.setItem('pageNumber', this.pageNumber.toString());
+      this.getAllProducts(this.pageNumber.toString());
+    }else{
+      this._toastr.info('No more products');
+    }
+  }
+
+  previousPage(){
+    if(this.pageNumber > 1){
+      this.otherLoading = true;
+      this.pageNumber--;
+      localStorage.setItem('pageNumber', this.pageNumber.toString());
+      this.getAllProducts(this.pageNumber.toString());
+    }else{
+      this._toastr.info('The is the first page');
+    }
   }
 
   addProductToCart(id: string) {
@@ -56,6 +87,7 @@ export class ProductsComponent {
       next: (res)=> {
         // console.log(res);
         this._cart.cartItemsNumber.next(res.numOfCartItems);
+        localStorage.setItem('cartItemsNumber', res.numOfCartItems);
         this._toastr.success(res.message);
         this.loading = false;
       },
@@ -77,10 +109,12 @@ export class ProductsComponent {
         // console.log(res);
         for(let item of res.data){
           this.wishList.push(item.id);
+          this.productsDone = true;
         }
       },
       error:(err)=>{
         console.log(err);
+        this.productsDone = true;
       }
     })
   }

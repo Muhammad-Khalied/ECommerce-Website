@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, inject, PLATFORM_ID } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, ValidationErrors, Validators } from '@angular/forms';
 import { AuthService } from '../../../shared/services/auth.service';
 import { Router } from '@angular/router';
+import { isPlatformBrowser } from '@angular/common';
 
 @Component({
   selector: 'app-register',
@@ -15,11 +16,13 @@ export class RegisterComponent {
 
   errorMessage: string = '';
   isLoading : boolean = false;
+  platform = inject(PLATFORM_ID);
 
   constructor(private _auth: AuthService, private _Router: Router) { }
 
   ngOnInit(): void {
-    localStorage.setItem('currentPage', 'register');
+    if(isPlatformBrowser(this.platform))
+      localStorage.setItem('currentPage', 'register');
   }
 
   registerForm: FormGroup = new FormGroup({

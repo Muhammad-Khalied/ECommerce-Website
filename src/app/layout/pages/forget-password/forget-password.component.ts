@@ -1,9 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, inject, PLATFORM_ID } from '@angular/core';
 import { AuthService } from '../../../shared/services/auth.service';
 import { FlowbiteService } from '../../../shared/services/flowbite.service';
 import { FormControl, FormGroup, ReactiveFormsModule, ValidationErrors, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { isPlatformBrowser } from '@angular/common';
 
 
 @Component({
@@ -19,6 +20,7 @@ export class ForgetPasswordComponent {
   email: string = '';
   isLoading : boolean = false;
   formNumber : number = 1;
+  platform = inject(PLATFORM_ID);
 
   constructor(private _auth: AuthService, private flowbiteService: FlowbiteService, private _router: Router, private _toastr:ToastrService ) { }
 
@@ -29,7 +31,8 @@ export class ForgetPasswordComponent {
     });
 
     this.formNumber = 1;
-    localStorage.setItem('currentPage', 'forgetPassword');
+    if(isPlatformBrowser(this.platform))
+      localStorage.setItem('currentPage', 'forgetPassword');
   }
 
 

@@ -1,9 +1,10 @@
 import { Brand } from './../../../shared/interfaces/cart-product';
-import { Component } from '@angular/core';
+import { Component, inject, PLATFORM_ID } from '@angular/core';
 import { BrandService } from '../../../shared/services/brand.service';
 import { BrandItem } from '../../../shared/interfaces/brand';
 import { LoadingComponent } from "../../additions/loading/loading.component";
 import { get } from 'http';
+import { isPlatformBrowser } from '@angular/common';
 
 @Component({
   selector: 'app-brand',
@@ -17,12 +18,14 @@ export class BrandComponent {
   brandDone : boolean = false;
   brandLoading : boolean = false;
   brandDetails!: BrandItem ;
+  platform = inject(PLATFORM_ID);
 
   constructor(private _brand: BrandService) { }
 
   ngOnInit(): void {
     this.getAllBrands();
-    localStorage.setItem('currentPage', 'brand');
+    if(isPlatformBrowser(this.platform))
+      localStorage.setItem('currentPage', 'brand');
   }
 
   getAllBrands() {

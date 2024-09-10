@@ -4,26 +4,26 @@
       <form action="" [formGroup]="checkoutForm" (ngSubmit)="submitData()">
         <div class="row justify-content-center gy-3">
           <div class="col-md-8">
-            <label class="fw-semibold" for="details">Details :</label>
-            <input type="text" id="details" class="border text-gray-900 text-sm font-bold rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required formControlName="details"/>
-            @if(checkoutForm.get('details')?.errors && checkoutForm.get('details')?.touched)
+            <label class="fw-semibold" for="address">Address :</label>
+            <input type="text" id="address" class="border text-gray-900 text-sm font-bold rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required formControlName="details"/>
+            @if(checkoutForm.get('address')?.errors && checkoutForm.get('address')?.touched)
             {
-              @if(checkoutForm.get('details')?.errors?.['required'])
+              @if(checkoutForm.get('address')?.errors?.['required'])
               {
                 <div>
-                  <p class="alert alert-danger mt-2">Details is required</p>
+                  <p class="alert alert-danger mt-2">address is required</p>
                 </div>
               }
-              @else if(checkoutForm.get('details')?.errors?.['minlength'])
+              @else if(checkoutForm.get('address')?.errors?.['minlength'])
               {
                 <div>
-                  <p class="alert alert-danger mt-2">Details must be at least 3 characters</p>
+                  <p class="alert alert-danger mt-2">address must be at least 3 characters</p>
                 </div>
               }
-              @else if(checkoutForm.get('details')?.errors?.['maxlength'])
+              @else if(checkoutForm.get('address')?.errors?.['maxlength'])
               {
                 <div>
-                  <p class="alert alert-danger mt-2">Details must be at most 15 characters</p>
+                  <p class="alert alert-danger mt-2">address must be at most 15 characters</p>
                 </div>
               }
             }
@@ -73,7 +73,7 @@
             }
           </div>
           <div class="col-md-8 text-end">
-            <button class="btn btn-success" [disabled]="checkoutForm.invalid">Submit
+            <button class="btn text-white btn-main" [disabled]="checkoutForm.invalid">Submit
               @if (isLoading) {
                 <i class="fa-solid fa-spinner fa-spin ms-1"></i>
               }

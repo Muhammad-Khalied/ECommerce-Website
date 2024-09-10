@@ -1,9 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, inject, PLATFORM_ID } from '@angular/core';
 import { WishlistService } from '../../../shared/services/wishlist.service';
 import { RootObject } from '../../../shared/interfaces/product';
 import { CartService } from '../../../shared/services/cart.service';
 import { ToastrService } from 'ngx-toastr';
 import { LoadingComponent } from "../../additions/loading/loading.component";
+import { isPlatformBrowser } from '@angular/common';
 
 @Component({
   selector: 'app-wishlist',
@@ -19,13 +20,15 @@ export class WishlistComponent {
   wishDone: boolean = false;
   loading: boolean = false;
   wishList: RootObject[] = [];
+  platform = inject(PLATFORM_ID);
 
 
   constructor(private _wish: WishlistService, private _cart: CartService, private _toastr:ToastrService) { }
 
   ngOnInit(): void {
     this.getWishList();
-    localStorage.setItem('currentPage', 'wishlist');
+    if(isPlatformBrowser(this.platform))
+      localStorage.setItem('currentPage', 'wishlist');
   }
 
   getWishList(){
@@ -66,6 +69,7 @@ export class WishlistComponent {
         // console.log(res);
         this._toastr.success(res.message);
         this._cart.cartItemsNumber.next(res.numOfCartItems);
+        localStorage.setItem('cartItemsNumber', res.numOfCartItems);
         this.loading = false;
       },
       error:(err)=>{

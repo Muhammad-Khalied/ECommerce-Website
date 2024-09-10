@@ -13,8 +13,13 @@ export class ProductService {
 
   constructor(private _http:HttpClient) { }
 
-  getProducts():Observable<any>{
-    return this._http.get(`${environment.baseUrl}/products`);
+  getProducts(page: string = '1'):Observable<any>{
+    return this._http.get(`${environment.baseUrl}/products`,{
+      params: {
+        page: page,
+        limit: '20',
+      }
+    });
   }
 
   getSpecificProduct(id:string):Observable<any>{

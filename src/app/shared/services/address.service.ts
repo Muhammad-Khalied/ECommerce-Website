@@ -1,12 +1,12 @@
-import { ShippingDetails } from '../interfaces/address';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { ShippingDetails } from '../interfaces/address';
 
 @Injectable({
   providedIn: 'root'
 })
-export class PaymentService {
+export class AddressService {
 
   constructor(private _http: HttpClient) { }
   
@@ -22,5 +22,5 @@ export class PaymentService {
       }
     })
   }
-
+  
 }

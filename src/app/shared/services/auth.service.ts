@@ -16,7 +16,6 @@ export class AuthService {
     afterNextRender(() => {
       if(localStorage.getItem('userToken') != null){
         this.userInformation();
-        this._router.navigate(['/home']);
       }
     })
   }

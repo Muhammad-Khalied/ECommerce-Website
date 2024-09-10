@@ -1,9 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, inject, PLATFORM_ID } from '@angular/core';
 import { CartService } from '../../../shared/services/cart.service';
 import { CartProducts, ProductElement } from '../../../shared/interfaces/cart-product';
 import { log } from 'console';
 import { LoadingComponent } from "../../additions/loading/loading.component";
 import { RouterLink } from '@angular/router';
+import { isPlatformBrowser } from '@angular/common';
 
 @Component({
   selector: 'app-cart',
@@ -18,13 +19,16 @@ export class CartComponent {
   productList: ProductElement[] = [];
   cartDone : boolean = false;
   updatingCart : boolean = false;
+  platform = inject(PLATFORM_ID);
+  emptyCart : boolean = false;
 
   constructor(private _cart:CartService) { }
 
   ngOnInit(): void {
     this.getCartProducts();
     this.updatingCart = true;
-    localStorage.setItem('currentPage', 'cart');
+    if(isPlatformBrowser(this.platform))
+      localStorage.setItem('currentPage', 'cart');
   }
 
   getCartProducts(){
@@ -35,6 +39,11 @@ export class CartComponent {
         this.cartDone = true;
         this.updatingCart = false;
         this._cart.cartItemsNumber.next(res.numOfCartItems);
+        localStorage.setItem('cartItemsNumber', res.numOfCartItems);
+        if(this._cart.cartItemsNumber.value == 0)
+          this.emptyCart = true;
+        else
+          this.emptyCart = false;
       },
       error: (err)=> {
         console.log(err);
@@ -84,6 +93,5 @@ export class CartComponent {
     })
   }
 
-  
 }
 

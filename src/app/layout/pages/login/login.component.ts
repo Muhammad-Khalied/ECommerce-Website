@@ -1,8 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, inject, PLATFORM_ID } from '@angular/core';
 import { AuthService } from '../../../shared/services/auth.service';
 import { Router, RouterLink } from '@angular/router';
 import { FormGroup, FormControl, Validators, ValidationErrors, ReactiveFormsModule } from '@angular/forms';
 import { FlowbiteService } from '../../../shared/services/flowbite.service';
+import { isPlatformBrowser } from '@angular/common';
 
 @Component({
   selector: 'app-login',
@@ -14,13 +15,14 @@ import { FlowbiteService } from '../../../shared/services/flowbite.service';
 export class LoginComponent {
   errorMessage: string = '';
   isLoading : boolean = false;
+  platform = inject(PLATFORM_ID);
 
   constructor(private _auth: AuthService, private _Router: Router, private flowbiteService: FlowbiteService) { }
 
   ngOnInit(): void {
     
-    
-    localStorage.setItem('currentPage', 'login');
+    if(isPlatformBrowser(this.platform))
+      localStorage.setItem('currentPage', 'login');
   }
 
   loginForm: FormGroup = new FormGroup({
@@ -46,8 +48,6 @@ export class LoginComponent {
       }
     });
   }
-
-
 
   clearFrom(){
     this.loginForm.reset();
