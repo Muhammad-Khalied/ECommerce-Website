@@ -34,10 +34,10 @@ export class ProductsComponent {
       if(localStorage.getItem('pageNumber') != null){
         this.pageNumber = parseInt(localStorage.getItem('pageNumber')!);
       }
+      localStorage.setItem('currentPage', 'products');
     }
     this.getAllProducts(this.pageNumber.toString());
     this.getWishList();
-    localStorage.setItem('currentPage', 'products');
     this._cart.getCartProducts().subscribe({
       next:(res)=>{
         this._cart.cartItemsNumber.next(res.numOfCartItems);

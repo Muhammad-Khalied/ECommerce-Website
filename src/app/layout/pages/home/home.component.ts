@@ -34,7 +34,9 @@ export class HomeComponent {
 
   ngOnInit(): void {
     if(isPlatformBrowser(this.platform)){
-      this.pageNumber = parseInt(localStorage.getItem('pageNumber')!);
+      if(localStorage.getItem('pageNumber') != null){
+        this.pageNumber = parseInt(localStorage.getItem('pageNumber')!);
+      }
       localStorage.setItem('currentPage', 'home');
     }
     this.getAllProducts(this.pageNumber.toString());
