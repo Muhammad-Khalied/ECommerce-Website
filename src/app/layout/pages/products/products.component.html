@@ -55,14 +55,17 @@
                     }
                 }
             </div>
-            <div class="flex justify-center gap-6 py-5">
-                <div>
-                    <button (click)="previousPage()" class="border-2 p-1 rounded-md"><i class="cursor-pointer fas fa-chevron-left"></i></button>
+            <div class="flex justify-center items-center gap-3 py-5">
+                    <div>
+                        <button (click)="previousPage()" class="border-2 p-1 rounded-md"><i class="cursor-pointer fas fa-chevron-left"></i></button>
+                    </div>
+                    <div>
+                        <span class="border-2 p-1 rounded-md"> {{pageNumber}} </span>
+                    </div>
+                    <div>
+                        <button (click)="nextPage()" class="border-2 p-1 rounded-md"><i class="cursor-pointer fas fa-chevron-right"></i></button>
+                    </div>
                 </div>
-                <div>
-                    <button (click)="nextPage()" class="border-2 p-1 rounded-md"><i class="cursor-pointer fas fa-chevron-right"></i></button>
-                </div>
-            </div>
         </div>
     }
 
