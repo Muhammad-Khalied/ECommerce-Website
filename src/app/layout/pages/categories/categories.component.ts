@@ -29,7 +29,7 @@ export class CategoriesComponent {
   getAllCategories() {
     this._category.getCategories().subscribe({
         next: (response) => {
-          console.log(response);
+          // console.log(response);
           this.categoryList = response.data;
           this.categoryDone = true;
         },

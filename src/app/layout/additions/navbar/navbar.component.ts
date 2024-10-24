@@ -31,11 +31,13 @@ export class NavbarComponent implements OnInit {
       }
     })
 
-    this._auth.isLogin.subscribe({
-      next:(res)=>{
-        this.isLogin = res;
+    this._auth.userData.subscribe(() => {
+      if (this._auth.userData.getValue() == null) {
+        this.isLogin = false;
+      } else {
+        this.isLogin = true;
       }
-    })
+    });
   }
 
   logout(){

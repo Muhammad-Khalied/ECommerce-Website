@@ -78,7 +78,6 @@
         </svg>
     </button>
     <div class="hidden w-full lg:flex lg:gap-32 lg:w-auto py-4 lg:py-0" id="navbar-default">
-      @if(isLogin){
         <ul class="font-medium flex flex-col lg:p-0 rounded-lg lg:flex-row rtl:space-x-reverse lg:mt-0 lg:bg-white dark:bg-gray-800 lg:dark:bg-gray-900 dark:border-gray-700">
           <li class="nav-item">
             <a class="nav-link fw-bold px-3 py-1 mb-6 lg:mb-0 rounded-3" routerLink="/home" routerLinkActive="activeLink text-white" >Home</a>
@@ -100,7 +99,6 @@
           </li>
           
         </ul>
-      }
 
       <ul class="lg:flex lg:p-0 rounded-lg lg:items-center lg:flex-row tl:space-x-reverse lg:mt-0 lg:bg-white dark:bg-gray-800 lg:dark:bg-gray-900 dark:border-gray-700">
         @if(!isLogin){
