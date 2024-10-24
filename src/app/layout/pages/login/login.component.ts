@@ -20,7 +20,6 @@ export class LoginComponent {
   constructor(private _auth: AuthService, private _Router: Router, private flowbiteService: FlowbiteService) { }
 
   ngOnInit(): void {
-    
     if(isPlatformBrowser(this.platform))
       localStorage.setItem('currentPage', 'login');
   }
@@ -38,12 +37,14 @@ export class LoginComponent {
         if (response.message == 'success') {
           localStorage.setItem('userToken', response.token);
           this._auth.userInformation();
+          this._auth.isLogin.next(true);
           this._Router.navigate(['/home']);
           this.isLoading = false;
         }
       },
       error: (errorMessage) => { 
         this.errorMessage = errorMessage.error.message;
+        this._auth.isLogin.next(false);
         this.isLoading = false;
       }
     });

@@ -4,18 +4,19 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { environment } from '../../Base/environment';
 import { Login, Register } from '../interfaces/register';
 import { jwtDecode } from "jwt-decode";
-import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
   userData: BehaviorSubject<any> = new BehaviorSubject(null);
+  isLogin: BehaviorSubject<boolean> = new BehaviorSubject(false);
 
-  constructor(private _http: HttpClient, private _router: Router) { 
+  constructor(private _http: HttpClient) { 
     afterNextRender(() => {
       if(localStorage.getItem('userToken') != null){
         this.userInformation();
+        this.isLogin.next(true);
       }
     })
   }
@@ -26,6 +27,10 @@ export class AuthService {
 
   login(formData : Login):Observable<any>{
     return this._http.post(`${environment.baseUrl}/auth/signin`, formData)
+  }
+
+  logout(){
+    this.isLogin.next(false);
   }
 
   userInformation(){

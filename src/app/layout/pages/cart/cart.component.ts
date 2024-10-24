@@ -5,6 +5,7 @@ import { log } from 'console';
 import { LoadingComponent } from "../../additions/loading/loading.component";
 import { RouterLink } from '@angular/router';
 import { isPlatformBrowser } from '@angular/common';
+import { AuthService } from '../../../shared/services/auth.service';
 
 @Component({
   selector: 'app-cart',
@@ -22,11 +23,17 @@ export class CartComponent {
   platform = inject(PLATFORM_ID);
   emptyCart : boolean = false;
 
-  constructor(private _cart:CartService) { }
+  constructor(private _cart:CartService, private _auth: AuthService) { }
 
   ngOnInit(): void {
-    this.getCartProducts();
-    this.updatingCart = true;
+    if(this._auth.isLogin.value){
+      this.getCartProducts();
+      this.updatingCart = true;
+    }else{
+      this.cartDone = true;
+      this.updatingCart = false
+      this.emptyCart = true;
+    }
     if(isPlatformBrowser(this.platform))
       localStorage.setItem('currentPage', 'cart');
   }

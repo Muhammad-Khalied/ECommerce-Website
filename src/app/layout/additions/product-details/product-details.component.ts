@@ -8,6 +8,7 @@ import { ToastrService } from 'ngx-toastr';
 import { LoadingComponent } from "../loading/loading.component";
 import { WishlistService } from '../../../shared/services/wishlist.service';
 import { isPlatformBrowser } from '@angular/common';
+import { AuthService } from '../../../shared/services/auth.service';
 
 @Component({
   selector: 'app-product-details',
@@ -52,8 +53,7 @@ export class ProductDetailsComponent {
   }
 
 
-  constructor(private _route:ActivatedRoute, private _product: ProductService, private _cart:CartService, private _toastr:ToastrService, private _wish: WishlistService) { 
-    
+  constructor(private _route:ActivatedRoute, private _product: ProductService, private _cart:CartService, private _toastr:ToastrService, private _wish: WishlistService, private _auth: AuthService) { 
   }
 
   ngOnInit(): void {
@@ -69,7 +69,12 @@ export class ProductDetailsComponent {
     this._product.getSpecificProduct(this.id).subscribe({
       next: (res)=>{
         this.productDetails = res.data;
-        this.getWishList();
+        if(this._auth.isLogin.value){
+          this.getWishList();
+        }else{
+          this.isDone = true;
+          this.isWish = false;
+        }
         // console.log(this.productDetails);
       },
       error: (err) => {
@@ -80,6 +85,10 @@ export class ProductDetailsComponent {
   }
 
   addProductToCart(id: string) {
+    if(!this._auth.isLogin.value){
+      this._toastr.info('Please login to add product to cart');
+      return;
+    }
     this.loading = true;
     this._cart.addProductToCart(id).subscribe({
       next: (res)=> {
@@ -98,6 +107,10 @@ export class ProductDetailsComponent {
   }
 
   addToWishList(id: string) {
+    if(!this._auth.isLogin.value){
+      this._toastr.info('Please login to add product to cart');
+      return;
+    }
     this.loading = true;
     this._wish.addToWishList(id).subscribe({
       next: (res)=> {
@@ -115,6 +128,10 @@ export class ProductDetailsComponent {
   }
 
   removeFromWishList(id: string) {
+    if(!this._auth.isLogin.value){
+      this._toastr.info('Please login to add product to cart');
+      return;
+    }
     this.loading = true;
     this._wish.removeFromWishList(id).subscribe({
       next: (res)=> {
@@ -135,9 +152,7 @@ export class ProductDetailsComponent {
   getWishList(){
     this._wish.getWishList().subscribe({
       next:(res)=>{
-        // console.log(res);
         for(let item of res.data){
-          // this.wishList.push(item.id);
           if(item.id === this.id){
             this.isWish = true;
           }

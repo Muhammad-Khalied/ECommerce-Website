@@ -19,11 +19,9 @@ export class CheckoutComponent {
   cartId : string = '';
   cartNumber : number = 0;
   platform = inject(PLATFORM_ID);
-
   constructor(private _address: AddressService, private _cart: CartService, private _Router: Router) { }
 
   checkoutForm: FormGroup = new FormGroup({
-
     details: new FormControl(null, [Validators.required, Validators.minLength(3), Validators.maxLength(30)]),
     phone: new FormControl(null, [Validators.required, Validators.pattern(/^01[0125][0-9]{8}$/)]),
     city: new FormControl(null, [Validators.required, Validators.minLength(3), Validators.maxLength(15)])

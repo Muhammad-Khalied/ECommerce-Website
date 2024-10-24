@@ -5,6 +5,7 @@ import { CartService } from '../../../shared/services/cart.service';
 import { ToastrService } from 'ngx-toastr';
 import { LoadingComponent } from "../../additions/loading/loading.component";
 import { isPlatformBrowser } from '@angular/common';
+import { AuthService } from '../../../shared/services/auth.service';
 
 @Component({
   selector: 'app-wishlist',
@@ -23,10 +24,15 @@ export class WishlistComponent {
   platform = inject(PLATFORM_ID);
 
 
-  constructor(private _wish: WishlistService, private _cart: CartService, private _toastr:ToastrService) { }
+  constructor(private _wish: WishlistService, private _cart: CartService, private _toastr:ToastrService, private _auth: AuthService) { }
 
   ngOnInit(): void {
-    this.getWishList();
+    if(this._auth.isLogin.value){
+      this.getWishList();
+    }else{
+      this.wishDone = true;
+      this.loading = false;
+    }
     if(isPlatformBrowser(this.platform))
       localStorage.setItem('currentPage', 'wishlist');
   }

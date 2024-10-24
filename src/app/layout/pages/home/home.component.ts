@@ -9,6 +9,7 @@ import { CartService } from '../../../shared/services/cart.service';
 import { ToastrService } from 'ngx-toastr';
 import { WishlistService } from '../../../shared/services/wishlist.service';
 import { isPlatformBrowser } from '@angular/common';
+import { AuthService } from '../../../shared/services/auth.service';
 
 
 @Component({
@@ -30,7 +31,7 @@ export class HomeComponent {
   otherLoading: boolean = false;
   platform = inject(PLATFORM_ID);
   
-  constructor(protected _product: ProductService, private _cart: CartService, private _toastr:ToastrService, private _wish: WishlistService) { }
+  constructor(protected _product: ProductService, private _cart: CartService, private _toastr:ToastrService, private _wish: WishlistService,  private _auth: AuthService) { }
 
   ngOnInit(): void {
     if(isPlatformBrowser(this.platform)){
@@ -39,24 +40,32 @@ export class HomeComponent {
       }
       localStorage.setItem('currentPage', 'home');
     }
+    
     this.getAllProducts(this.pageNumber.toString());
-    this.getWishList();
-    this._cart.getCartProducts().subscribe({
-      next:(res)=>{
-        this._cart.cartItemsNumber.next(res.numOfCartItems);
-      }
-    })
+    if(this._auth.isLogin.value){
+      this.getWishList();
+      this._cart.getCartProducts().subscribe({
+        next:(res)=>{
+          this._cart.cartItemsNumber.next(res.numOfCartItems);
+        }
+      })
+    }else{
+      this.productsDone = true;
+    }
   }
 
   getAllProducts(page: string) {
+    this.loading = true;
     this._product.getProducts(this.pageNumber.toString()).subscribe({
         next: (response) => { 
           this.productList = response.data;
           this.otherLoading = false;
+          this.loading = false;
         },
         error: (error) => { 
           console.log(error);
           this.otherLoading = false;
+          this.loading = false;
         },
       });
   }
@@ -84,6 +93,10 @@ export class HomeComponent {
   }
 
   addProductToCart(id: string) {
+    if(!this._auth.isLogin.value){
+      this._toastr.info('Please login to add product to cart');
+      return;
+    }
     this.loading = true;
     this._cart.addProductToCart(id).subscribe({
       next: (res)=> {
@@ -106,6 +119,10 @@ export class HomeComponent {
   }
 
   addToWishList(id: string) {
+    if(!this._auth.isLogin.value){
+      this._toastr.info('Please login to add product to cart');
+      return;
+    }
     this.loading = true;
     this._wish.addToWishList(id).subscribe({
       next: (res)=> {
@@ -123,6 +140,10 @@ export class HomeComponent {
   }
 
   removeFromWishList(id: string) {
+    if(!this._auth.isLogin.value){
+      this._toastr.info('Please login to add product to cart');
+      return;
+    }
     this.loading = true;
     this._wish.removeFromWishList(id).subscribe({
       next: (res)=> {
